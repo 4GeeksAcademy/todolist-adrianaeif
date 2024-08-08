@@ -11,7 +11,10 @@ const ToDoList= () => {
     return (
         <div>
 
-            <input type="text" value={newTask}  placeholder="What do you want to do next?"
+
+            {/* Barra para agregar tarea */}
+            <div class="input-group mt-5 p-4 centered-container">
+            <input type="text" className="form-control"  value={newTask}  placeholder="What do you want to do next?"
 				onChange={(event) => setNewTask(event.target.value)}
                 
 				onKeyUp={(event) => {
@@ -23,15 +26,23 @@ const ToDoList= () => {
 				}}
 			/>
               
-              {(taskList.length == 0) && <div>No tasks, add a task</div>}
+                </div>
+
+               {/* Alerta de tareas sin agregar */}
+              {(taskList.length == 0) && <div class="text-center p-3 mb-4 fs-5">No tasks, add a task</div>}
+
+              {/* Borrar tarea */}
               {taskList.map((tarea, indice)=> <Task task={tarea}  key={indice} onRemove={()=>{
                 setTaskList(taskList
                     .filter((_tarea, indiceABorrar)=>{
-                        indice != indiceABorrar
+                        return indice != indiceABorrar
                 }))
               }}/> )}
-              <p>{taskList.length} items left</p>
 
+               {/* pie de página */}
+              <div class="card text-center"></div>
+              <div class="text-muted">{taskList.length} items left</div>
+            
         </div>
     )
 }

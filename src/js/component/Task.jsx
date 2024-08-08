@@ -6,7 +6,11 @@ const Task = (props) => {
     const [isHovered, setIsHovered] = useState (false)
 
     return (
-        <div className="d-flex justify-content-between" 
+
+        <div class="card mx-5 m-2 p-1">
+        <div class="card-body text-center">
+          <blockquote class="blockquote mb-0">
+          <div className="d-flex justify-content-between" 
         
         onMouseEnter={()=> {
             setIsHovered(true);
@@ -14,17 +18,19 @@ const Task = (props) => {
         }}
         onMouseLeave={()=>{
             setIsHovered(false);
-        }}
-        >
-            <p>{props.task}</p>
+        }}>
+            {props.task}
             {(isHovered) &&   <span onClick={() => {
                 props.onRemove()
-
-            }}>x(icono)</span>}
+            }} class="fa-solid fa-xmark"></span>}
           
 
         </div>
+          </blockquote>
+        </div>
+      </div>
     )
+        
 }
 
 export default Task;
