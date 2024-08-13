@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Task from "./Task.jsx";
 
 const ToDoList= () => {
@@ -7,6 +7,17 @@ const ToDoList= () => {
         const [newTask, setNewTask] = useState("");
 
         const [taskList, setTaskList] = useState([]);
+
+        const loadTask = async() => {
+            const urlApi = 'https://playground.4geeks.com/todo/users/adrianaeif'
+            const response = await fetch(urlApi);
+            const data = await response.json();
+            setTaskList(data.todos)
+        }
+
+        useEffect( () => {
+            loadTask();
+        },[])
 
     return (
         <div>

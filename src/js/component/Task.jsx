@@ -19,7 +19,8 @@ const Task = (props) => {
         onMouseLeave={()=>{
             setIsHovered(false);
         }}>
-            {props.task}
+            {props.task.label}
+
             {(isHovered) &&   <span onClick={() => {
                 props.onRemove()
             }} class="fa-solid fa-xmark"></span>}
