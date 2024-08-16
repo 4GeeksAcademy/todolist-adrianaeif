@@ -15,11 +15,36 @@ const ToDoList= () => {
             setTaskList(data.todos)
         }
 
+        const createTask = async () =>{
+            const response = await fetch ('https://playground.4geeks.com/todo/todos/adrianaeif', {
+                method: 'POST',
+                body: JSON.stringify({
+                    label: newTask,
+                    is_done: false
+                }),
+                headers:{
+                    "content-Type": "application/json"
+                }
+            });
+            const data = await response.JSON();
+
+        }
+    
+        const deleteTask = async (newTask) =>{
+            const id = newTask.id;
+            const response = await fetch ('https://playground.4geeks.com/todo/todos/${id}', {
+                method: 'DELETE',
+               });
+               const data = await response.JSON();
+            }
+
+        
+
         useEffect( () => {
             loadTask();
-        },[])
+        },[]);
 
-    return (
+        return (
         <div>
 
 
@@ -31,9 +56,11 @@ const ToDoList= () => {
 				onKeyUp={(event) => {
 
 					if(event.key == "Enter"){
+                        createTask();
                         setTaskList([newTask,...taskList]);
                         setNewTask("");
 					}
+                    
 				}}
 			/>
               
@@ -42,8 +69,9 @@ const ToDoList= () => {
                {/* Alerta de tareas sin agregar */}
               {(taskList.length == 0) && <div class="text-center p-3 mb-4 fs-5">No tasks, add a task</div>}
 
-              {/* Borrar tarea */}
-              {taskList.map((tarea, indice)=> <Task task={tarea}  key={indice} onRemove={()=>{
+              {/* Borrar tarea REVISAR */}
+              {taskList.map((tarea, indice)=> 
+              <Task task={tarea}  key={indice} onRemove={()=>{
                 setTaskList(taskList
                     .filter((_tarea, indiceABorrar)=>{
                         return indice != indiceABorrar
@@ -53,7 +81,13 @@ const ToDoList= () => {
                {/* pie de página */}
               <div class="card text-center"></div>
               <div class="text-muted">{taskList.length} items left</div>
-            
+
+              {/* Eliminar todas las tareas REVISAR*/}
+            <div>
+                <button className="btn btn-danger m-5">
+                    Eliminar todas las tareas
+                </button>
+            </div>
         </div>
     )
 }
