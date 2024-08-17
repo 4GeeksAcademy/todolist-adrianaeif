@@ -7,9 +7,9 @@ const Task = (props) => {
 
     return (
 
-        <div class="card mx-5 m-2 p-1">
-        <div class="card-body text-center">
-          <blockquote class="blockquote mb-0">
+        <div className="card mx-5 m-2 p-1">
+        <div className="card-body text-center">
+          <blockquote className="blockquote mb-0">
           <div className="d-flex justify-content-between" 
         
         onMouseEnter={()=> {
@@ -23,7 +23,7 @@ const Task = (props) => {
 
             {(isHovered) &&   <span onClick={() => {
                 props.onRemove()
-            }} class="fa-solid fa-xmark"></span>}
+            }} className="fa-solid fa-xmark"></span>}
           
 
         </div>

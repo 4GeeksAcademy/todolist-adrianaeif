@@ -61,12 +61,30 @@ const ToDoList= () => {
             }
             }
 
+
+            // Eliminar todas las tareas
+            const deleteAll = async () => {
+                try {
+                    const response = await fetch("https://playground.4geeks.com/todo/users/adrianaeif", {
+                        method: 'DELETE'
+                    });
+                    if (response.ok) {
+                        setTaskList([])} 
+                        await createUser(); // crea nuevamente el usuario luego de ser borrado
+                    } catch (error) {
+                      console.error('Error clearing tasks:', error);
+                    }
+                  };
+                
+            
+
         
 
         useEffect( () => {
             createUser();
             loadTask();
         },[]);
+
 
         return (
         <div>
@@ -105,7 +123,7 @@ const ToDoList= () => {
 
               {/* Eliminar todas las tareas REVISAR*/}
             <div>
-                <button className="btn btn-danger m-5" onClick={() => {}}>
+                <button className="btn btn-danger m-5" onClick={() => {deleteAll();}}>
                     Eliminar todas las tareas
                 </button>
             </div>
