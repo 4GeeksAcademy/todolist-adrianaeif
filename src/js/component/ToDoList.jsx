@@ -86,7 +86,7 @@ const ToDoList= () => {
                         setTaskList([])
                     } 
                     } catch (error) {
-                      console.error('Error clearing tasks:', error);
+                      console.error(error);
                     }
                   };
                 
