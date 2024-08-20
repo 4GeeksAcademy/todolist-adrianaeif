@@ -24,25 +24,38 @@ const ToDoList= () => {
         //crear usuario
 
         const createUser = async () => {
-            const response = await fetch ('https://playground.4geeks.com/todo/users/adrianaeif', {
-                method: 'POST',
-            })
+            const urlApi = 'https://playground.4geeks.com/todo/users/adrianaeif'
+            const resp = await fetch(urlApi);
+            
+            if (! resp.ok) {
+                const response = await fetch ('https://playground.4geeks.com/todo/users/adrianaeif', {
+                    method: 'POST',
+                })
+            }
+            
         }
 
 
         // crear tarea
         const createTask = async () =>{
+            try {
             const response = await fetch ('https://playground.4geeks.com/todo/todos/adrianaeif', {
                 method: 'POST',
-                body: JSON.stringify({
-                    label: newTask,
-                    is_done: false
-                }),
+                body: JSON.stringify(
+                    {
+                        label: newTask,
+                        is_done: false
+                    }
+                ),
                 headers:{
                     "content-Type": "application/json"
                 }
             });
-            const data = await response.JSON();
+            const data = await response.json();
+            setTaskList([data,...taskList]);
+            } catch (error) {
+            console.error(error);
+          }
             
         }
         
@@ -69,8 +82,9 @@ const ToDoList= () => {
                         method: 'DELETE'
                     });
                     if (response.ok) {
-                        setTaskList([])} 
                         await createUser(); // crea nuevamente el usuario luego de ser borrado
+                        setTaskList([])
+                    } 
                     } catch (error) {
                       console.error('Error clearing tasks:', error);
                     }
@@ -99,7 +113,7 @@ const ToDoList= () => {
 
 					if(event.key == "Enter"){
                         createTask();
-                        setTaskList([newTask,...taskList]);
+                        
                         setNewTask("");
 					}
                     
